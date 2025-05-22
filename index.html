@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyansh Singh - Backend Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Visualization & Content Choices:
+        - Header: Name, Contact Icons (Goal: Inform, Action) -> HTML/Tailwind, Unicode Icons (Presentation) -> Clickable links (Interaction) -> Easy identification and contact (Justification) -> HTML.
+        - Navigation: Sticky Nav Bar (Goal: Navigate) -> HTML/Tailwind, JS for active state (Presentation) -> Click to scroll (Interaction) -> Easy access to all sections (Justification) -> HTML, JS.
+        - Summary: Text block (Goal: Inform) -> HTML/Tailwind (Presentation) -> Static (Interaction) -> Clear intro to candidate (Justification) -> HTML.
+        - Experience: Chronological list of expandable cards (Goal: Inform, Detail) -> HTML/Tailwind, JS for toggle (Presentation) -> Click to expand/collapse (Interaction) -> Allows for quick scanning and deep dives (Justification) -> HTML, JS.
+        - Projects: Similar to Experience, expandable cards (Goal: Inform, Detail) -> HTML/Tailwind, JS for toggle (Presentation) -> Click to expand/collapse (Interaction) -> Showcases practical application of skills (Justification) -> HTML, JS.
+        - Skills: Categorized lists and a horizontal bar chart for skill categories (Goal: Inform, Compare) -> HTML/Tailwind for lists, Chart.js for chart (Presentation) -> Static list, interactive chart tooltips (Interaction) -> Quick overview of technical capabilities (Justification) -> HTML, Chart.js.
+        - Education: Text block (Goal: Inform) -> HTML/Tailwind (Presentation) -> Static (Interaction) -> Standard resume section (Justification) -> HTML.
+        - Achievements: Bulleted list with icons (Goal: Inform, Highlight) -> HTML/Tailwind, Unicode icons (Presentation) -> Static (Interaction) -> Emphasizes key accomplishments (Justification) -> HTML.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Tailwind uses Inter by default with a fallback */
+        }
+        .nav-link.active {
+            color: #d97706; /* amber-600 */
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px; /* Adjusted for potentially wider chart */
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px; /* Base height, Tailwind h-80 */
+            max-height: 400px; /* Tailwind max-h-96 is 384px, this is slightly more */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .expand-content {
+            display: none;
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+        }
+        .expanded .expand-content {
+            display: block;
+        }
+        .section-title {
+            font-size: 1.75rem; /* text-2xl or text-3xl */
+            font-weight: 600;
+            color: #404040; /* neutral-700 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-bottom: 0.5rem; /* pb-2 */
+            border-bottom: 2px solid #f59e0b; /* amber-500 */
+        }
+    </style>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+</head>
+<body class="bg-amber-50 text-neutral-700 antialiased">
+
+    <header class="bg-stone-100 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center py-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-amber-700">PRIYANSH SINGH</h1>
+                    <p class="text-neutral-600">Backend Engineer</p>
+                </div>
+                <div class="mt-3 sm:mt-0 text-sm space-x-4">
+                    <a href="tel:+917618166335" class="text-neutral-600 hover:text-amber-600 transition duration-150">📞 +91-7618166335</a>
+                    <a href="mailto:singhpriyansh51001@gmail.com" class="text-neutral-600 hover:text-amber-600 transition duration-150">📧 singhpriyansh51001@gmail.com</a>
+                    <a href="#" id="linkedin-link-placeholder" class="text-neutral-600 hover:text-amber-600 transition duration-150">🔗 LinkedIn</a>
+                    <a href="#" id="github-link-placeholder" class="text-neutral-600 hover:text-amber-600 transition duration-150">🔗 GitHub</a>
+                </div>
+            </div>
+            <nav class="flex flex-wrap justify-center sm:justify-start space-x-4 py-2 border-t border-stone-200">
+                <a href="#summary" class="nav-link text-neutral-600 hover:text-amber-600 transition duration-150 px-3 py-2 rounded-md text-sm font-medium">Summary</a>
+                <a href="#experience" class="nav-link text-neutral-600 hover:text-amber-600 transition duration-150 px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                <a href="#projects" class="nav-link text-neutral-600 hover:text-amber-600 transition duration-150 px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                <a href="#skills" class="nav-link text-neutral-600 hover:text-amber-600 transition duration-150 px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                <a href="#education" class="nav-link text-neutral-600 hover:text-amber-600 transition duration-150 px-3 py-2 rounded-md text-sm font-medium">Education</a>
+                <a href="#achievements" class="nav-link text-neutral-600 hover:text-amber-600 transition duration-150 px-3 py-2 rounded-md text-sm font-medium">Achievements</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto max-w-5xl p-4 sm:p-6 lg:p-8 mt-8">
+        
+        <section id="summary" class="mb-12 scroll-mt-24">
+            <h2 class="section-title">Summary</h2>
+            <p class="text-lg leading-relaxed">
+                Results-oriented Backend Engineer with over 2 years of experience specializing in designing, developing, and optimizing scalable microservices, data pipelines, and security-focused platforms. Proven expertise in Single Sign-On (SSO) systems, fine-grained access control (Zanzibar), data encryption (AWS KMS, AES-GCM), and high-performance databases (ScyllaDB, ClickHouse). Adept at leveraging technologies like Go, Python, Kafka, and PostgreSQL to build robust and efficient backend solutions. Strong contributor to enhancing system performance, security, and user engagement through innovative and data-driven approaches.
+            </p>
+        </section>
+
+        <section id="experience" class="mb-12 scroll-mt-24">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="space-y-8">
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-amber-700">SDE-2</h3>
+                            <p class="text-neutral-600">Tailnode | Noida, India</p>
+                        </div>
+                        <p class="text-neutral-500 text-sm mt-1 sm:mt-0">01/2023 – Current</p>
+                    </div>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-neutral-700">
+                        <li>Spearheaded the design, end-to-end development, and implementation of a mission-critical centralized Single Sign-On (SSO) platform, unifying authentication and authorization across 8+ internal microservices and diverse applications. 
+                            <button class="text-amber-600 hover:text-amber-700 text-sm ml-2 expand-button">(Show Details)</button>
+                            <div class="expand-content mt-2 pl-4 border-l-2 border-amber-200">
+                                <ul class="list-disc list-outside ml-5 space-y-1 text-sm">
+                                    <li>Engineered a Google Zanzibar-inspired fine-grained access control system utilizing ScyllaDB for high-throughput tuple storage and a flexible YAML-based DSL, achieving sub-10ms latency for authorization checks and enabling precise, adaptable permission management.</li>
+                                    <li>Implemented highly secure OTP-based authentication (via email/phone) and centralized user management with standardized profiles, significantly bolstering the security posture and streamlining the user experience across all integrated products.</li>
+                                    <li>Ensured comprehensive PII (Personally Identifiable Information) protection by architecting and integrating an envelope encryption strategy using AWS KMS for master key management and AES-GCM for data encryption, achieving full compliance with global data protection regulations (GDPR, HIPAA).</li>
+                                    <li>Developed and deployed a comprehensive SSO analytics dashboard, providing real-time insights into user login activity, journey tracking, and feature usage heatmaps, enabling proactive detection of abnormal login patterns and informing data-driven security enhancements.</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>Developed a high-performance API benchmarking and load testing tool in Go, leveraging goroutines for concurrent user login simulations and parallel API requests. This tool was instrumental in proactively identifying performance bottlenecks, validating scalability, and ensuring the SSO platform's stability under peak load conditions.</li>
+                        <li>Led the full lifecycle development of a dynamic data visualization dashboard, incorporating 15+ interactive chart types and real-time filtering capabilities. This initiative drove a 15% increase in customer engagement, a 20% reduction in churn rate.</li>
+                        <li>Engineered a highly scalable Kafka-based data pipeline for seamless batch migration of terabytes of data from MySQL to ClickHouse, resulting in a 60% reduction in analytical query execution time and a 30% uplift in overall system performance.</li>
+                        <li>Implemented and optimized ScyllaDB as a high-performance storage solution for pre-processed analytical data, efficiently managing over 5TB of information and supporting 200+ concurrent user sessions with consistent sub-50ms query retrieval times.</li>
+                        <li>Designed and developed scalable REST APIs for complex ETL operations, effectively consolidating data from disparate sources and achieving a 30% reduction in data processing errors through robust validation and error handling.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-amber-700">SDE-1</h3>
+                            <p class="text-neutral-600">Tailnode | Noida, India</p>
+                        </div>
+                        <p class="text-neutral-500 text-sm mt-1 sm:mt-0">09/2022 – 01/2023</p>
+                    </div>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-neutral-700">
+                        <li>Developed a resilient and scalable file upload microservice, incorporating chunked uploads and robust error handling mechanisms, successfully processing an average of 800 large-file uploads daily with high reliability.</li>
+                        <li>Architected and implemented a critical Slack integration using webhooks and the OAuth2 authorization flow, creating an enterprise-wide notification system handling over 4,000 daily alerts via Slack and Server-Sent Events (SSE), significantly improving team responsiveness and incident awareness.</li>
+                        <li>Employed Kafka with Avro serialization for efficiently scheduling and managing resource-intensive asynchronous tasks, leading to optimized workflow processes and improved system throughput for background operations.</li>
+                        <li>Optimized system performance to reliably manage approximately 700 critical daily tasks (over 50,000 cumulative), ensuring sub-200ms data retrieval times for task status and historical data, crucial for operational monitoring.</li>
+                        <li>Engineered complex SQL queries with custom pagination logic to support high-performance data retrieval for frontend infinite scroll features, significantly enhancing user experience when interacting with large datasets.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start mb-2">
+                        <div>
+                            <h3 class="text-xl font-semibold text-amber-700">Backend Developer Intern</h3>
+                            <p class="text-neutral-600">Pebbl | Remote</p>
+                        </div>
+                        <p class="text-neutral-500 text-sm mt-1 sm:mt-0">01/2022 – 04/2022</p>
+                    </div>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-neutral-700">
+                        <li>Developed and optimized REST APIs for a high-traffic online dating platform, implementing strategic data caching techniques that successfully reduced server load by 30% and improved API response times.</li>
+                        <li>Designed and implemented an efficient NoSQL database schema (MongoDB), leading to a 20% reduction in data storage utilization and a 15% improvement in data retrieval speeds for user profiles and match data.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="mb-12 scroll-mt-24">
+            <h2 class="section-title">Personal Projects</h2>
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-semibold text-amber-700">Advanced Image Captioning System</h3>
+                    <p class="text-sm text-neutral-500 mb-2">PyTorch, Vision Transformers (ViT), Deep Learning, HuggingFace</p>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-neutral-700">
+                        <li>Architected an innovative image captioning system leveraging Vision Transformers (ViT) and advanced deep learning techniques. Implemented optimized training strategies, including mixed-precision training and adaptive learning rate scheduling, which resulted in a 40% faster model convergence.</li>
+                        <li>Engineered intricate attention mechanisms with precise masking patterns and learned positional embeddings, demonstrating a profound understanding of transformer architectures for complex sequence-to-sequence tasks.</li>
+                        <li>Developed highly efficient data processing pipelines, incorporating advanced tokenization techniques (BPE), to effectively prepare and manage over 100,000 image-text pairs for model training and evaluation.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-semibold text-amber-700">Wisook – Social Media Platform</h3>
+                    <p class="text-sm text-neutral-500 mb-2">Django, OAuth, Redis, PostgreSQL, WebSockets, Node.js</p>
+                    <ul class="list-disc list-outside ml-5 space-y-2 text-neutral-700">
+                        <li>Led the backend development of a feature-rich social media platform, creating real-time user interaction capabilities (live chat, instant notifications) using a dedicated Node.js microservice and Socket.IO WebSockets.</li>
+                        <li>Implemented secure OAuth 2.0 authentication for user registration and login, and integrated an automated content aggregation feature through intelligent web scraping techniques to enhance platform content.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-12 scroll-mt-24">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-amber-700 mb-2">Languages</h4>
+                        <ul class="flex flex-wrap gap-2">
+                            <li class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">Python</li>
+                            <li class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">Go (Golang)</li>
+                            <li class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">JavaScript (Node.js)</li>
+                            <li class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">SQL</li>
+                            <li class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">Rust</li>
+                            <li class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm">C++</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-amber-700 mb-2">Technologies/Frameworks</h4>
+                        <ul class="flex flex-wrap gap-2">
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Django</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">FastAPI</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Microservices Architecture</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">REST APIs</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">gRPC</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Kafka</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">RabbitMQ</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Linux</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Git</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Docker</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Kubernetes</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">WebSockets</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">OAuth2</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Server-Sent Events (SSE)</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Avro</li>
+                            <li class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-sm">Protocol Buffers</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-amber-700 mb-2">Databases</h4>
+                        <ul class="flex flex-wrap gap-2">
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">PostgreSQL</li>
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">ScyllaDB</li>
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">ClickHouse</li>
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">Cassandra</li>
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">Redis</li>
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">MongoDB</li>
+                            <li class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm">MySQL</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-amber-700 mb-2">Cloud/Security</h4>
+                        <ul class="flex flex-wrap gap-2">
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">AWS (KMS, S3, EC2, Lambda, RDS)</li>
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Envelope Encryption</li>
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">SSO/OAuth/OpenID Connect</li>
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">OTP</li>
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Data Security Best Practices</li>
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">GDPR & HIPAA Compliance</li>
+                            <li class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">API Security</li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-2">
+                        <h4 class="text-lg font-semibold text-amber-700 mb-2">ML/AI & Data</h4>
+                        <ul class="flex flex-wrap gap-2">
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">PyTorch</li>
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Transformers</li>
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Vision Transformers (ViT)</li>
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Hugging Face</li>
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">Pandas</li>
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">NumPy</li>
+                            <li class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm">ETL Pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+                 <p class="text-sm text-center text-neutral-500 mt-4">The chart above visualizes the number of listed skills per category.</p>
+            </div>
+        </section>
+
+        <section id="education" class="mb-12 scroll-mt-24">
+            <h2 class="section-title">Education</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-amber-700">B.Tech Electronics and Communication Engineering</h3>
+                <p class="text-neutral-600">Jaypee Institute of Information Technology | Noida, India</p>
+                <p class="text-neutral-500 text-sm">04/2019 – 06/2023</p>
+            </div>
+        </section>
+
+        <section id="achievements" class="mb-12 scroll-mt-24">
+            <h2 class="section-title">Achievements & Awards</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <ul class="list-none space-y-3">
+                    <li class="flex items-start">
+                        <span class="text-amber-600 mr-3 text-xl">🏆</span> 
+                        <div>
+                            <h4 class="font-semibold">First Runner-Up at Zeta Hacks 3.0</h4>
+                            <p class="text-sm text-neutral-600">Awarded for 'Evento', a collaborative event planning platform, surpassing 25,000+ global contenders in a highly competitive hackathon.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-amber-600 mr-3 text-xl">🏅</span>
+                        <div>
+                            <h4 class="font-semibold">Top 50 Teams at Route Mobile Rapid Hackathon</h4>
+                            <p class="text-sm text-neutral-600">Recognized for 'BMG (Book My Guide)', an innovative travel guide application, ranking among the top teams out of 7,000 participants.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-800 text-stone-300 py-8 text-center">
+        <p>&copy; <span id="currentYear"></span> Priyansh Singh. All rights reserved.</p>
+        <p class="text-sm mt-1">Designed to be an interactive resume experience.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Update Links (Replace # with actual links if provided)
+            const actualLinkedInLink = "https://www.linkedin.com/in/priyansh-singh-example"; // Replace with actual
+            const actualGitHubLink = "https://github.com/priyansh-example"; // Replace with actual
+            document.getElementById('linkedin-link-placeholder').href = actualLinkedInLink;
+            document.getElementById('github-link-placeholder').href = actualGitHubLink;
+
+            // Smooth scrolling for nav links
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Active nav link highlighting on scroll
+            const sections = document.querySelectorAll('section[id]');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4 
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`nav a[href="#${id}"]`);
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('nav a.active').forEach(link => link.classList.remove('active'));
+                        if (navLink) {
+                            navLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Expand/Collapse functionality
+            const expandButtons = document.querySelectorAll('.expand-button');
+            expandButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const parentCard = this.closest('li'); // Or the parent div if structure changes
+                    
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                        this.textContent = '(Show Details)';
+                        if(parentCard) parentCard.classList.remove('expanded');
+                    } else {
+                        content.style.display = 'block';
+                        this.textContent = '(Hide Details)';
+                        if(parentCard) parentCard.classList.add('expanded');
+                    }
+                });
+            });
+
+            // Skills Chart
+            const skillsData = {
+                labels: ['Languages', 'Tech/Frameworks', 'Databases', 'Cloud/Security', 'ML/AI & Data'],
+                datasets: [{
+                    label: 'Number of Skills',
+                    data: [6, 16, 7, 7, 7], // Updated counts based on the detailed list
+                    backgroundColor: [
+                        'rgba(251, 146, 60, 0.7)', // amber-500
+                        'rgba(59, 130, 246, 0.7)', // sky-500
+                        'rgba(16, 185, 129, 0.7)', // emerald-500
+                        'rgba(139, 92, 246, 0.7)', // indigo-500
+                        'rgba(236, 72, 153, 0.7)'  // pink-500
+                    ],
+                    borderColor: [
+                        'rgba(251, 146, 60, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(139, 92, 246, 1)',
+                        'rgba(236, 72, 153, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const skillsChartCtx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(skillsChartCtx, {
+                type: 'bar', // Changed to 'bar' for better category comparison
+                data: skillsData,
+                options: {
+                    indexAxis: 'y', // Makes it a horizontal bar chart
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#525252' // neutral-600
+                            },
+                            grid: {
+                                color: '#e5e5e5' // neutral-300
+                            }
+                        },
+                        y: {
+                             ticks: {
+                                color: '#525252' // neutral-600
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Hiding legend as it's a single dataset
+                        },
+                        tooltip: {
+                            backgroundColor: '#262626', // neutral-800
+                            titleColor: '#fafafa', // neutral-50
+                            bodyColor: '#fafafa', // neutral-50
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
